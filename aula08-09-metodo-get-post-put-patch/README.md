@@ -1,118 +1,239 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# API de Convidados
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST desenvolvida em **NestJS** para gerenciamento de convidados (CRUD completo). Este README explica como rodar o projeto e como testar cada rota usando **Postman** ou **Insomnia**.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Sumário
 
-## Description
+- [Modelo de dados](#modelo-de-dados)
+- [Como rodar o projeto](#como-rodar-o-projeto)
+- [Base URL](#base-url)
+- [Endpoints](#endpoints)
+  - [GET /convidados](#get-convidados)
+  - [GET /convidados/filtrar](#get-convidadosfiltrar)
+  - [POST /convidados](#post-convidados)
+  - [PATCH /convidados/:id](#patch-convidadosid)
+  - [PUT /convidados/:id](#put-convidadosid)
+  - [DELETE /convidados/:id](#delete-convidadosid)
+- [Testando com Postman](#testando-com-postman)
+- [Testando com Insomnia](#testando-com-insomnia)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Modelo de dados
 
-## Project setup
+Cada convidado segue esta estrutura (`Convidado`):
 
-```bash
-$ npm install
+```json
+{
+  "id": 1,
+  "nome": "Emanoel",
+  "idade": 19
+}
 ```
 
-## Compile and run the project
+## Como rodar o projeto
 
 ```bash
-# development
-$ npm run start
+# instalar dependências
+npm install
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# rodar em modo desenvolvimento
+npm run start:dev
 ```
 
-## Run tests
+Por padrão o NestJS sobe o servidor em `http://localhost:3000`.
 
-```bash
-# unit tests
-$ npm run test
+## Base URL
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+http://localhost:3000/convidados
 ```
 
-## Deployment
+Todas as rotas abaixo usam essa base.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Endpoints
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### GET /convidados
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+Retorna a lista completa de convidados.
+
+| Método | Rota          |
+|--------|---------------|
+| GET    | `/convidados` |
+
+**Exemplo de resposta:**
+```json
+[
+  { "id": 1, "nome": "Emanoel", "idade": 19 },
+  { "id": 2, "nome": "Henry", "idade": 18 },
+  { "id": 3, "nome": "Isaac", "idade": 0 }
+]
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### GET /convidados/filtrar
 
-## Observability
+Retorna os convidados que possuem a idade informada via **query param**.
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
+| Método | Rota                    |
+|--------|-------------------------|
+| GET    | `/convidados/filtrar`   |
 
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
+**Query param obrigatório:**
+- `idade` (número)
 
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
+**Exemplo de URL:**
+```
+GET http://localhost:3000/convidados/filtrar?idade=18
+```
 
-This project is already instrumented. Create a free account at [observe.nestjs.com](https://observe.nestjs.com), add an application, and paste the generated app key and secret into the `ObserveModule.forRoot()` call in `src/app.module.ts`.
+### POST /convidados
 
-The free plan needs no payment details and covers 300,000 events a month. You can also browse the [live demo](https://www.observe-demo.nestjs.com/dashboard) first - the whole dashboard over a busy service's data, with nothing to install.
+Cria um novo convidado.
 
-## Resources
+| Método | Rota          |
+|--------|---------------|
+| POST   | `/convidados` |
 
-Check out a few resources that may come in handy when working with NestJS:
+**Body (JSON):**
+```json
+{
+  "id": 4,
+  "nome": "Maria",
+  "idade": 22
+}
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observe](https://observe.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**Exemplo de resposta:**
+```json
+{
+  "mensagem": "Usuário Maria cadastrado com sucesso",
+  "dados": {
+    "id": 4,
+    "nome": "Maria",
+    "idade": 22
+  }
+}
+```
 
-## Support
+### PATCH /convidados/:id
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Atualiza **apenas a idade** de um convidado existente.
 
-## Stay in touch
+| Método | Rota                |
+|--------|---------------------|
+| PATCH  | `/convidados/:id`   |
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**Parâmetro de rota:**
+- `id` (número) — id do convidado a ser atualizado
 
-## License
+**Body (JSON):**
+```json
+{
+  "idade": 20
+}
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+**Exemplo de URL:**
+```
+PATCH http://localhost:3000/convidados/1
+```
+
+### PUT /convidados/:id
+
+Substitui todas as informações de um convidado existente.
+
+| Método | Rota                |
+|--------|---------------------|
+| PUT    | `/convidados/:id`   |
+
+**Parâmetro de rota:**
+- `id` (número) — id do convidado a ser substituído
+
+**Body (JSON):**
+```json
+{
+  "id": 1,
+  "nome": "Emanoel Souza",
+  "idade": 20
+}
+```
+
+**Exemplo de URL:**
+```
+PUT http://localhost:3000/convidados/1
+```
+
+> ⚠️ Se o `id` não existir, a API retorna `404 Not Found` com a mensagem `"Convidado não encontrado"`.
+
+### DELETE /convidados/:id
+
+Remove um convidado pelo id.
+
+| Método | Rota                |
+|--------|---------------------|
+| DELETE | `/convidados/:id`   |
+
+**Parâmetro de rota:**
+- `id` (número) — id do convidado a ser removido
+
+**Exemplo de URL:**
+```
+DELETE http://localhost:3000/convidados/2
+```
+
+---
+
+## Testando com Postman
+
+1. Abra o Postman e clique em **New > HTTP Request**.
+2. Selecione o **método HTTP** (GET, POST, PATCH, PUT ou DELETE) no menu suspenso ao lado da URL.
+3. Digite a URL da rota, por exemplo:
+   ```
+   http://localhost:3000/convidados
+   ```
+4. Para rotas que precisam de **corpo (body)**, como `POST`, `PATCH` e `PUT`:
+   - Vá até a aba **Body**.
+   - Selecione a opção **raw**.
+   - No dropdown ao lado, escolha **JSON**.
+   - Cole o JSON correspondente (veja os exemplos acima).
+5. Para a rota `GET /convidados/filtrar`, vá até a aba **Params** e adicione:
+   - Key: `idade`
+   - Value: `18` (ou o valor desejado)
+6. Clique em **Send** para enviar a requisição.
+7. A resposta da API aparecerá na parte inferior da tela, com o status HTTP e o corpo da resposta em JSON.
+
+**Dica:** você pode criar uma **Collection** no Postman com todas essas requisições já configuradas, para reutilizar sempre que precisar testar a API.
+
+## Testando com Insomnia
+
+1. Abra o Insomnia e clique em **New Request** (ou use `Ctrl+N`).
+2. Dê um nome à requisição e selecione o **método HTTP** desejado.
+3. Digite a URL da rota, por exemplo:
+   ```
+   http://localhost:3000/convidados/1
+   ```
+4. Para rotas com corpo (`POST`, `PATCH`, `PUT`):
+   - Clique na aba **Body**, logo abaixo da URL.
+   - Selecione **JSON**.
+   - Cole o JSON com os dados (veja os exemplos acima).
+5. Para a rota de filtro (`GET /convidados/filtrar`):
+   - Você pode digitar a query direto na URL:
+     ```
+     http://localhost:3000/convidados/filtrar?idade=18
+     ```
+   - Ou usar a aba **Query** para adicionar o parâmetro `idade` separadamente.
+6. Clique no botão **Send** (seta roxa) para disparar a requisição.
+7. O resultado será exibido no painel à direita, mostrando status, tempo de resposta e o JSON retornado.
+
+**Dica:** organize as requisições em uma **Workspace** ou **Folder** dentro do Insomnia para manter tudo relacionado ao projeto Convidados em um só lugar.
+
+---
+
+## Resumo rápido das rotas
+
+| Método | Rota                          | Descrição                              |
+|--------|-------------------------------|-----------------------------------------|
+| GET    | `/convidados`                 | Lista todos os convidados               |
+| GET    | `/convidados/filtrar?idade=N` | Filtra convidados por idade             |
+| POST   | `/convidados`                 | Cria um novo convidado                  |
+| PATCH  | `/convidados/:id`             | Atualiza a idade de um convidado        |
+| PUT    | `/convidados/:id`             | Substitui os dados de um convidado      |
+| DELETE | `/convidados/:id`             | Remove um convidado                     |
