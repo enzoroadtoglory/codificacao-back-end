@@ -5,15 +5,27 @@ import type { Request, Response, NextFunction } from 'express';
 export class LoggerMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: NextFunction) {
-    console.log(`[LOG] Método: ${req.method} | Rota: ${req.path}`);
+    const rota = req.originalUrl || req.url;
+    console.log(`[LOG] Método: ${req.method} | Rota: ${rota}`);
 
-      if(req.path.startsWith('')){
+      if(rota.includes('/admin')){
         const role = req.headers['x-user-role'];
-        if(role !== 'supervisor'){
+        if(role !== 'administrator'){
           return res.status(403).json({
             statuscode:403,
-            message:'Acesso negado: Previlégio de supervisor necessário',
+            mensagem:'Acesso negado: Previlégio de supervisor necessário',
             log: new Date(),
+          })
+        }
+      }
+
+      if(rota.includes('/secret')){
+        const role = req.headers['x-secret-role'];
+        if(role !== 'secret'){
+          return res.status(404).json({
+            statuscode:404,
+            mensagem:'Cannot found /secret',
+            data:new Date()
           })
         }
       }
