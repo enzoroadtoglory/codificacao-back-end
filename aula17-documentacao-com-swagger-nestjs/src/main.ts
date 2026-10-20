@@ -1,0 +1,19 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module.js';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  const config = new DocumentBuilder().setTitle("API de Catálogo e Estoque")
+  .setDescription("Documentação técnica interativo e viva para integração")
+  .setVersion('1.0')
+  .addTag('Produtos')
+  .addBearerAuth()
+  .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('Docs', app, document);
+
+  await app.listen(3000);
+}
+await bootstrap();
