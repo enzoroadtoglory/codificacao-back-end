@@ -1,0 +1,66 @@
+{
+    "usuarios":
+    [
+        {
+            "dados":{"nome": "enzo capitani", "email":"enzo.l.vieira@aluno.senai.br"},
+            "interface":"escuro",
+            "assinatura":"PRO"
+        },
+        {
+            "dados":{"nome": "Emanoel Fernandes", "email":"emanoelfernades@aluno.senai.br"},
+            "interface":"claro",
+            "assinatura":"gratuito"
+        }
+    ],
+
+    "tarefas":
+    [
+        {   
+            "titulo":"Fazer o botão de login funcionar",
+            "descricao":"O botão de login parou de funcionar após a implementação do cadastro simplificado pela API do google",
+            "criador":"enzo capitani",
+            "prioridade":"média",
+            "colaboradores":["enzo capitani", "Emanoel Fernandes"],
+            "anexos":[],
+            "prazo":"2026-11-20",
+            "criação":"2026-10-20",
+            "tipo":"frontend"
+        },
+        {   
+            "titulo":"Criptografar as senhas recebidas pelo frontend e enviar para o banco de dados",
+            "descricao":"Para medidas de seguranças, deve-se implementar o BCrypt ao back-end para a criptografia em hash das senhas, no minimo de peso 10",
+            "criador":"Enzo Emanoel",
+            "prioridade":"Alta",
+            "colaboradores":["enzo capitani"],
+            "anexos":[],
+            "prazo":"2026-11-22",
+            "criação":"2026-10-18",
+            "tipo":"backend"
+        }
+    ],
+    "blocos":
+    [
+        {
+            "titulo":"Para fazer",
+            "tarefas":[
+                {"titulo":"Fazer o botão de login funcionar", "descricao":"O botão de login parou de funcionar após a implementação do cadastro simplificado pela API do google"}
+            ]
+        },
+        {
+            "titulo":"Em andamento",
+            "tarefas":[
+                {"titulo":"Criptografar as senhas recebidas pelo frontend e enviar para o banco de dados", "descricao":"Para medidas de seguranças, deve-se implementar o BCrypt ao back-end para a criptografia em hash das senhas, no minimo de peso 10"}
+            ]
+        }
+    ],
+
+    "area-de-trabalho":{
+        "nome":"Projeto integrador programador Full-Stack",
+        "lider":"enzo capitani",
+        "descricao":"Ambiente de trabalho para o desenvolvimento do projeto integrador do curso de programador full-stack",
+        "integrantes":["enzo capitani", "Enzo Emanoel"],
+        "blocos":["Para fazer", "Em andamento"],
+        "data-criacao":"2026-09-26"
+    }
+
+}

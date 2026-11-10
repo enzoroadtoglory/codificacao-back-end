@@ -1,0 +1,36 @@
+{
+    [
+        "autor":"enzocapitani",
+        "data":"2026-10-18",
+        "texto":"Ugh! Esses ponteiros me dão dor de cabeça! São tão ultrapassado, por que ainda usam isso?",
+        "curtidas":[
+            {"usuario":"enzoemanoel", "data":"2026-10-18"},
+            {"usuario":"camiluna", "data":"2026-10-18"},
+            {"usuario":"machado96", "data":"2026-10-19"},
+            {"usuario":"matheuxtreme", "data":"2026-10-19"},
+            {"usuario":"sequestradorDoParque900", "data":"2026-10-20"}
+        ],
+        "comentarios":[
+            {"autor":"enzoemanoel", "texto":"Nem me fale! Não aguento mais essas aulas de lista encadeadas"},
+            {"autor":"machado96", "texto":"Olha tua dm enzo"},
+            {"autor":"sequestradorDoParque900", "texto":"vem aqui no parque rapidola"}
+        ]
+    ]
+}
+{
+    "autor":"enzocapitani",
+    "data":"2026-10-18",
+    "texto":"Ugh! Esses ponteiros me dão dor de cabeça! São tão ultrapassado, por que ainda usam isso?",
+    "curtidas":[
+        {"usuario":"enzoemanoel", "data":"2026-10-18"},
+        {"usuario":"camiluna", "data":"2026-10-18"},
+        {"usuario":"machado96", "data":"2026-10-19"},
+        {"usuario":"matheuxtreme", "data":"2026-10-19"},
+        {"usuario":"sequestradorDoParque900", "data":"2026-10-20"}
+    ],
+    "comentarios":[
+        {"autor":"enzoemanoel", "texto":"Nem me fale! Não aguento mais essas aulas de lista encadeadas"},
+        {"autor":"machado96", "texto":"Olha tua dm enzo"},
+        {"autor":"sequestradorDoParque900", "texto":"vem aqui no parque rapidola"}
+    ]
+}
