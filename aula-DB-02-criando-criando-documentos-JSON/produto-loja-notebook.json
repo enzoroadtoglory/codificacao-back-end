@@ -1,0 +1,14 @@
+{
+    "nome":"NoteBook Asus VivoBook 15",
+    "categoria":"Informatica",
+    "preco":3708.90,
+    "quantidade":15,
+    "especificacoes":{
+        "ram":16,
+        "processador":"Intel Core i5-13450U",
+        "armazenamento":"512GB SSD"
+    },
+    "tags":[
+        "NoteBook", "Informática", "Custo Beneficio"
+    ]
+}

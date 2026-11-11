@@ -1,0 +1,19 @@
+{
+    "nome":"Lucas Almeida",
+    "nomesocial":"Sicssevem",
+    "matricula":"0001",
+    "dataNascimento":"2002-05-14",
+    "curso":"Desenvolvimento de Sistemas",
+    "disciplinas":[
+        {"nome": "Banco de dados", "nota":9.5},
+        {"nome": "Desenvolvimento Web", "nota":8.8}
+    ],
+    "endereco":{
+        "rua":"Rua das Flores",
+        "numero":"123",
+        "bairro":"Jardim Felicidade",
+        "cidade":"Macapá",
+        "estado":"Amapá",
+        "cep":"68909067"
+    }
+}
