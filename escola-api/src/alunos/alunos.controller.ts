@@ -5,16 +5,14 @@ import { Controller,
          Patch,
          Param,
          Delete,
-         Query,
-         DefaultValuePipe,
-         ParseIntPipe } from "@nestjs/common";
+         Query } from "@nestjs/common";
 import { AlunosService } from "./alunos.service.js";
 import { CreateAlunoDto } from "./dto/create-aluno.dto.js";
 import { UpdateAlunoDto } from "./dto/update-aluno.dto.js";
-import { ApiTags, 
-         ApiOperation, 
-         ApiResponse,
-         ApiQuery } from '@nestjs/swagger';
+import { QueryAlunosDto } from "./dto/query-alunos.dto.js";
+import { ApiTags,
+         ApiOperation,
+         ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('alunos')         
 @Controller('alunos')
@@ -77,39 +75,10 @@ export class AlunosController {
         status: 500,
         description: 'Erro interno do servidor ou serviço indisponível.',
     })
-    @ApiQuery({
-        name: 'page',
-        required: false,
-        type: Number,
-        description: 'Número da página(padrão: 1)'
-    })
-    @ApiQuery({
-        name: 'limit',
-        required: false,
-        type: Number,
-        description: 'Itens por página(padrão: 10)'
-    })
-
-    @ApiQuery({
-      name: 'nome',
-      required:false,
-      type: String,
-      description: "Filtra alunos pelo nome"
-    })
-    @ApiQuery({
-      name: 'curso',
-      required:false,
-      type: String,
-      description: "Filtra alunos pelo curso"
-    })
-
-    findAllPage(
-      @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-      @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-      @Query('nome') nome?: string,
-      @Query('curso') curso?: string
-    ){
-        return this.alunoService.findAllPage(page, limit, nome, curso);
+    // Os parâmetros (page, limit, nome, curso e os operadores avançados
+    // $in/$nin/$exists/$regex/$elemMatch) são documentados em QueryAlunosDto.
+    findAllPage(@Query() query: QueryAlunosDto){
+        return this.alunoService.findAllPage(query);
     }
     @Get(':id')
     @ApiOperation({
