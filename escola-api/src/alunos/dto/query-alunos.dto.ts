@@ -29,7 +29,7 @@ const toNumberList = ({ value }: { value: unknown }) =>
         .map(Number)
     : value;
 
-const toBoolean = ({ value }: { value: unknown }) =>
+export const toBoolean = ({ value }: { value: unknown }) =>
   value === 'true' ? true : value === 'false' ? false : value;
 
 export class QueryAlunosDto {

@@ -10,6 +10,9 @@ import { AlunosService } from "./alunos.service.js";
 import { CreateAlunoDto } from "./dto/create-aluno.dto.js";
 import { UpdateAlunoDto } from "./dto/update-aluno.dto.js";
 import { QueryAlunosDto } from "./dto/query-alunos.dto.js";
+import { IncrementarIdadeDto } from "./dto/incrementar-idade.dto.js";
+import { RenomearCursoDto } from "./dto/renomear-curso.dto.js";
+import { ExcluirLoteQueryDto } from "./dto/excluir-lote-query.dto.js";
 import { ApiTags,
          ApiOperation,
          ApiResponse } from '@nestjs/swagger';
@@ -118,6 +121,54 @@ export class AlunosController {
     update(@Param('id') id: string, @Body() updateAlunoDto: UpdateAlunoDto){
         return this.alunoService.update(id, updateAlunoDto);
     }
+    @Patch(':id/incrementar-idade')
+    @ApiOperation({
+        summary: 'Incrementa (ou decrementa) a idade de um aluno com $inc',
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Idade atualizada. Retorna matchedCount e modifiedCount.',
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Aluno não encontrado pelo _id.',
+    })
+    incrementarIdade(@Param('id') id: string, @Body() dto: IncrementarIdadeDto){
+        return this.alunoService.incrementarIdade(id, dto);
+    }
+
+    @Patch('lote/renomear-curso')
+    @ApiOperation({
+        summary: 'Renomeia um curso para todos os alunos que o possuem (updateMany)',
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Retorna matchedCount e modifiedCount.',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Dados inválidos.',
+    })
+    renomearCurso(@Body() dto: RenomearCursoDto){
+        return this.alunoService.renomearCurso(dto);
+    }
+
+    @Delete('lote')
+    @ApiOperation({
+        summary: 'Exclui os alunos de um curso (deleteMany com filtro obrigatório)',
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Retorna deletedCount, ou apenas a contagem se simular=true.',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Curso não informado: a exclusão sem filtro é bloqueada.',
+    })
+    excluirEmLote(@Query() query: ExcluirLoteQueryDto){
+        return this.alunoService.excluirEmLote(query);
+    }
+
     @Delete(':id')
     @ApiOperation({
         summary: 'Remove um aluno específico pelo _id',

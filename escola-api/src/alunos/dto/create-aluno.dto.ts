@@ -7,6 +7,8 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Matches,
+  Max,
   Min,
   ValidateNested,
 } from 'class-validator';
@@ -20,6 +22,7 @@ export class NotaDto {
   @ApiProperty({ example: 8.5, description: 'Nota obtida' })
   @IsNumber()
   @Min(0)
+  @Max(10, { message: 'A nota não pode ser maior que 10' })
   valor: number;
 }
 
@@ -71,6 +74,7 @@ export class CreateAlunoDto {
   })
   @IsOptional()
   @IsString()
+  @Matches(/^[\d\s()+-]{8,20}$/, { message: 'Telefone inválido' })
   telefone?: string;
 
   @ApiPropertyOptional({
