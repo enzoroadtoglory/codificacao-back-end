@@ -1,11 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AuditoriaInterceptor } from './auditoria.interceptor.js';
+import { ConfigType } from '@nestjs/config';
+import databaseConfig from './config/database.config.js';
+import authConfig from './config/auth.config.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const loggerDatabase = new Logger('DATABASE');
+  const loggerAuth = new Logger('AUTH');
+
+  const configDB = app.get<ConfigType <typeof databaseConfig>>(databaseConfig.KEY);
+  const configAuth = app.get<ConfigType <typeof authConfig>>(authConfig.KEY);
 
   app.useGlobalInterceptors(new AuditoriaInterceptor());
 
@@ -28,5 +36,12 @@ async function bootstrap() {
   SwaggerModule.setup("api", app, document);
 
   await app.listen(process.env.PORT ?? 3000);
+
+  Logger.log(`API escola rodando na porta ${await app.getUrl()} Port`);
+  loggerDatabase.log(`Conectado em: ${configDB.uri}`)
+  loggerDatabase.log(`Pool Máximo: ${configDB.maxPoolSize}`)
+  loggerAuth.log(`Chave secreta: ${configAuth.jwtSecret}`)
+  loggerAuth.log(`Tempo de sessão : ${configAuth.jwtExpiresIn}`)
+  
 }
 await bootstrap();
